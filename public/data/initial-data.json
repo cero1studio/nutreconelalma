@@ -1,0 +1,19 @@
+{
+  "populationType": "Adulto",
+  "adultPercentage": 60,
+  "pediatricPercentage": 30,
+  "neonatalPercentage": 10,
+  "productionLines": 2,
+  "dailyProduction": 100,
+  "protectionMaterialCost": 500,
+  "hygieneMaterialCost": 300,
+  "maintenanceCost": 1000,
+  "productionCost": 2000,
+  "sterilEquipmentCost": 1500,
+  "automatedEquipmentCost": 3000,
+  "pharmacistHours": 0.5,
+  "pharmacistCost": 200,
+  "nurseHours": 0.75,
+  "nurseCost": 150,
+  "calculationHistory": []
+}

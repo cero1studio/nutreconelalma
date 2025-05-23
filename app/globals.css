@@ -1,0 +1,257 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 142 69% 49%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 291 100% 42%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 291 100% 42%;
+    --radius: 1rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  /* Mejoras de tipografía responsiva */
+  h1 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold text-purple-800;
+  }
+
+  h2 {
+    @apply text-xl md:text-2xl lg:text-3xl font-semibold text-green-600;
+  }
+
+  h3 {
+    @apply text-lg md:text-xl lg:text-2xl font-medium text-purple-600;
+  }
+}
+
+@layer components {
+  .layout-container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1200px;
+  }
+
+  .content-container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1200px;
+  }
+
+  .form-container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 800px;
+  }
+
+  .input-group {
+    @apply space-y-2;
+  }
+
+  .input-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .input-field {
+    @apply w-full rounded-full border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500;
+  }
+
+  .button-base {
+    @apply inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .card-base {
+    @apply bg-white rounded-lg shadow-lg overflow-hidden;
+  }
+
+  /* Contenedores responsivos */
+  .responsive-grid {
+    @apply grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .responsive-flex {
+    @apply flex flex-col sm:flex-row items-center gap-4;
+  }
+
+  .content-card {
+    @apply bg-white rounded-lg shadow-lg p-6;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thumb-purple {
+    scrollbar-color: theme("colors.purple.400") theme("colors.gray.100");
+  }
+
+  .mobile-pt {
+    padding-top: 3.5rem;
+  }
+
+  /* Ajustes para pantallas pequeñas */
+  .text-responsive {
+    font-size: clamp(0.75rem, 2vw, 1rem);
+  }
+
+  .input-responsive {
+    height: clamp(2rem, 5vw, 2.5rem);
+  }
+
+  .p-responsive {
+    padding: clamp(0.5rem, 2vw, 1rem);
+  }
+
+  .gap-responsive {
+    gap: clamp(0.5rem, 2vw, 1rem);
+  }
+}
+
+/* Mejoras en la barra de desplazamiento */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-purple-400 rounded-full transition-colors;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-purple-500;
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Soporte para modo oscuro */
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  /* ... resto de variables en modo oscuro ... */
+}
+
+/* Estilos personalizados para la barra de desplazamiento en navegadores webkit */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-purple-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-purple-500;
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 640px) {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-padding {
+    @apply px-2 py-2;
+  }
+
+  .mobile-stack {
+    @apply flex-col;
+  }
+
+  /* Ajustes para tablas en móviles */
+  .mobile-table th,
+  .mobile-table td {
+    @apply px-2 py-1 text-xs;
+  }
+
+  .mobile-input {
+    @apply h-8 text-xs;
+  }
+}
+
+/* Mejoras para tablets */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-padding {
+    @apply px-4 py-3;
+  }
+
+  .tablet-grid {
+    @apply grid-cols-2;
+  }
+
+  /* Ajustes para tablas en tablets */
+  .tablet-table th,
+  .tablet-table td {
+    @apply px-3 py-2 text-sm;
+  }
+
+  .tablet-input {
+    @apply h-9 text-sm;
+  }
+}
+
+/* Mejoras para tablets en orientación horizontal */
+@media (min-width: 1024px) and (max-width: 1280px) and (orientation: landscape) {
+  .tablet-landscape-padding {
+    @apply px-6;
+  }
+
+  .tablet-landscape-grid {
+    @apply grid-cols-3;
+  }
+}
+
+/* Mejoras para desktop */
+@media (min-width: 1025px) {
+  .desktop-padding {
+    @apply px-8;
+  }
+
+  .desktop-grid {
+    @apply grid-cols-3;
+  }
+}
