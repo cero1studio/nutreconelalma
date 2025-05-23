@@ -18,12 +18,12 @@ export default function CalculatorPage() {
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-f5nDdo9a88OwB8ZX5sUkbCt01JSPaf.png"
                 alt="B Braun Logo"
-                className="inline-block h-20"
+                className="inline-block h-20 transform scale-150" /* Aumentado 1.5 veces */
               />
             </div>
             <div className="mt-4">
               <h2 className="text-3xl text-green-500 font-medium">CALCULADORA</h2>
-              <h1 className="text-4xl text-purple-700 font-bold">NUTRICION HOSPITALARIA</h1>
+              <h1 className="text-4xl text-purple-700 font-bold">NUTRICIÓN HOSPITALARIA</h1>
             </div>
           </div>
         </div>

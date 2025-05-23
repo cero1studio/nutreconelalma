@@ -149,6 +149,7 @@ const initialManualCosts: ManualCosts = {
     aguaEsteril500ml: 4000,
     bolsa1000ml: 31000,
     bolsa500ml: 30000,
+    otrosAdult: 0,
   },
   pediatricMaterialCosts: {
     aminoacidsInfantil100ml: 40000,
@@ -171,6 +172,7 @@ const initialManualCosts: ManualCosts = {
     aguaEsteril500ml: 4000,
     bolsa1000ml: 31000,
     bolsa500ml: 30000,
+    otrosPediatric: 0,
   },
   neonatalMaterialCosts: {
     aminoacidsInfantil100ml: 40000,
@@ -193,6 +195,7 @@ const initialManualCosts: ManualCosts = {
     aguaEsteril500ml: 4000,
     bolsa1000ml: 31000,
     bolsa500ml: 30000,
+    otrosNeonatal: 0,
   },
   protectionMaterialCosts: {
     guantesEsteriles: 500,
@@ -281,6 +284,7 @@ const initialAutomatedCosts: AutomatedCosts = {
     singleChamberMixingContainer500ml: 30000,
     singleChamberMixingContainer1000ml: 31000,
     singleChamberMixingContainer2000ml: 31000,
+    otrosAdultAuto: 0,
   },
   pediatricMaterialCosts: {
     aminoacidsInfantil100ml: 40000,
@@ -305,6 +309,7 @@ const initialAutomatedCosts: AutomatedCosts = {
     singleChamberMixingContainer500ml: 30000,
     singleChamberMixingContainer1000ml: 31000,
     singleChamberMixingContainer2000ml: 31000,
+    otrosPediatricAuto: 0,
   },
   neonatalMaterialCosts: {
     aminoacidsInfantil100ml: 40000,
@@ -327,6 +332,7 @@ const initialAutomatedCosts: AutomatedCosts = {
     aguaEsteril500ml: 4000,
     bolsa1000ml: 31000,
     bolsa500ml: 20000,
+    otrosNeonatalAuto: 0,
   },
   automatedEquipmentCosts: {
     tamperResistantClamps: 1400,

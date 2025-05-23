@@ -115,6 +115,8 @@ export default function CalculatorForm() {
       singleChamberMixingContainer500ml: 0.0,
       singleChamberMixingContainer1000ml: 0.0,
       singleChamberMixingContainer2000ml: 0.0,
+      otros: 0.0,
+      otrosAuto: 0.0,
 
       // Pediátrico
       aminoacidsInfantil100ml: 0.0,
@@ -129,6 +131,8 @@ export default function CalculatorForm() {
       dextrosa50500ml: 127.0,
       multivitaminas: 5.0,
       aguaEsteril500ml: 98.37,
+      otros: 0.0,
+      otrosAuto: 0.0,
 
       // Neonatal
       aminoacidsInfantil100ml: 20.5,
@@ -147,6 +151,8 @@ export default function CalculatorForm() {
       multivitaminas: 1.0,
       aguaEsteril500ml: 100.0,
       bolsa1000ml: 1.0,
+      otros: 0.0,
+      otrosAuto: 0.0,
     }
 
     // Crear un objeto con las cantidades iniciales solo para los ingredientes que existen
@@ -298,13 +304,17 @@ export default function CalculatorForm() {
       aguaEsteril500ml: "Agua estéril x 500 ml",
       bolsa1000ml: "Bolsa x 1000 mL",
       bolsa500ml: "Bolsa x 500 mL",
+      otros: "Otros",
+      otrosAuto: "Otros",
+      otrosAdult: "Otros",
+      otrosPediatric: "Otros",
+      otrosNeonatal: "Otros",
 
       // Materia Prima - Pediátrica y Neonatal
       aminoacidsInfantil100ml: "Aminoácidos Infantil x 100 mL",
       aminoacidsInfantil250ml: "Aminoácidos Infantil x 250 mL",
       aminoacidsInfantil500ml: "Aminoácidos infantil x 500 mL",
       aminoacidsInfantil1000ml: "Aminoácidos Infantil x 1000 mL",
-      // Add these new translations
       singleChamberMixingContainer250ml: "Single-Chamber Mixing Container Eva 250 mL",
       singleChamberMixingContainer500ml: "Single-Chamber Mixing Container Eva 500 mL",
       singleChamberMixingContainer1000ml: "Single-Chamber Mixing Container Eva 1000 mL",
@@ -784,79 +794,154 @@ export default function CalculatorForm() {
               </TableHeader>
               <TableBody>
                 {Object.entries(materialCosts).map(([key, value]) => {
-                  const quantity = form.watch(`${quantitiesField}.${key}`) || 0
-                  const label = getIngredientLabel(key)
-                  const presentation = extractPresentation(label)
-                  const costPerMl = value / presentation
-                  const totalCost = quantity * costPerMl
+                  // Si la clave es "otros" o "otrosAuto", mostrarla como "Otros"
+                  if (key === "otros" || key === "otrosAuto") {
+                    const otrosKey = isManual ? "otros" : "otrosAuto"
+                    const quantity = form.watch(`${quantitiesField}.${otrosKey}`) || 0
+                    const totalCost = quantity * (materialCosts[otrosKey] || 0)
 
-                  return (
-                    <TableRow key={key}>
-                      <TableCell>{label}</TableCell>
-                      {showPresentationColumn && (
+                    return (
+                      <TableRow key={otrosKey}>
+                        <TableCell>Otros</TableCell>
+                        {showPresentationColumn && (
+                          <TableCell>
+                            <Input type="number" min="1" value="1" readOnly className="w-full bg-gray-50" />
+                          </TableCell>
+                        )}
                         <TableCell>
-                          <Input type="number" min="1" value={presentation} readOnly className="w-full bg-gray-50" />
-                        </TableCell>
-                      )}
-                      <TableCell>
-                        <Input
-                          type="number"
-                          min="0"
-                          step="0.1"
-                          defaultValue={quantity}
-                          onBlur={(e) => {
-                            const value = Number.parseFloat(e.target.value) || 0
-                            form.setValue(`${quantitiesField}.${key}`, value)
-                            setHasUnsavedChanges(true)
-                          }}
-                          className="w-full"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <div className="relative flex items-center">
-                          <span className="text-purple-600 mr-2">$</span>
                           <Input
                             type="number"
                             min="0"
-                            step="100"
-                            value={value}
-                            onChange={(e) => {
-                              // Actualizar el costo unitario en el store
-                              if (isManual) {
-                                const newCosts = { ...store.manualCosts }
-                                if (populationType === "Adulto") {
-                                  newCosts.adultMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
-                                } else if (populationType === "Pediátrico") {
-                                  newCosts.pediatricMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
-                                } else {
-                                  newCosts.neonatalMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
-                                }
-                                store.setManualCosts(newCosts)
-                              } else {
-                                const newCosts = { ...store.automatedCosts }
-                                if (populationType === "Adulto") {
-                                  newCosts.adultMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
-                                } else if (populationType === "Pediátrico") {
-                                  newCosts.pediatricMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
-                                } else {
-                                  newCosts.neonatalMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
-                                }
-                                store.setAutomatedCosts(newCosts)
-                              }
+                            step="0.1"
+                            defaultValue={quantity}
+                            onBlur={(e) => {
+                              const value = Number.parseFloat(e.target.value) || 0
+                              form.setValue(`${quantitiesField}.${otrosKey}`, value)
                               setHasUnsavedChanges(true)
                             }}
                             className="w-full"
                           />
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="relative flex items-center">
-                          <span className="text-purple-600 mr-2">$</span>
-                          <Input value={totalCost.toLocaleString("es-ES")} className="bg-gray-50" disabled />
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  )
+                        </TableCell>
+                        <TableCell>
+                          <div className="relative flex items-center">
+                            <span className="text-purple-600 mr-2">$</span>
+                            <Input
+                              type="number"
+                              min="0"
+                              step="100"
+                              value={materialCosts[otrosKey] || 0}
+                              onChange={(e) => {
+                                // Update the cost in the store
+                                if (isManual) {
+                                  const newCosts = { ...store.manualCosts }
+                                  if (populationType === "Adulto") {
+                                    newCosts.adultMaterialCosts[otrosKey] = Number.parseFloat(e.target.value) || 0
+                                  } else if (populationType === "Pediátrico") {
+                                    newCosts.pediatricMaterialCosts[otrosKey] = Number.parseFloat(e.target.value) || 0
+                                  } else {
+                                    newCosts.neonatalMaterialCosts[otrosKey] = Number.parseFloat(e.target.value) || 0
+                                  }
+                                  store.setManualCosts(newCosts)
+                                } else {
+                                  const newCosts = { ...store.automatedCosts }
+                                  if (populationType === "Adulto") {
+                                    newCosts.adultMaterialCosts[otrosKey] = Number.parseFloat(e.target.value) || 0
+                                  } else if (populationType === "Pediátrico") {
+                                    newCosts.pediatricMaterialCosts[otrosKey] = Number.parseFloat(e.target.value) || 0
+                                  } else {
+                                    newCosts.neonatalMaterialCosts[otrosKey] = Number.parseFloat(e.target.value) || 0
+                                  }
+                                  store.setAutomatedCosts(newCosts)
+                                }
+                                setHasUnsavedChanges(true)
+                              }}
+                              className="w-full"
+                            />
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="relative flex items-center">
+                            <span className="text-purple-600 mr-2">$</span>
+                            <Input value={totalCost.toLocaleString("es-ES")} className="bg-gray-50" disabled />
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  } else {
+                    const quantity = form.watch(`${quantitiesField}.${key}`) || 0
+                    const label = getIngredientLabel(key)
+                    const presentation = extractPresentation(label)
+                    const costPerMl = value / presentation
+                    const totalCost = quantity * costPerMl
+
+                    return (
+                      <TableRow key={key}>
+                        <TableCell>{label}</TableCell>
+                        {showPresentationColumn && (
+                          <TableCell>
+                            <Input type="number" min="1" value={presentation} readOnly className="w-full bg-gray-50" />
+                          </TableCell>
+                        )}
+                        <TableCell>
+                          <Input
+                            type="number"
+                            min="0"
+                            step="0.1"
+                            defaultValue={quantity}
+                            onBlur={(e) => {
+                              const value = Number.parseFloat(e.target.value) || 0
+                              form.setValue(`${quantitiesField}.${key}`, value)
+                              setHasUnsavedChanges(true)
+                            }}
+                            className="w-full"
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <div className="relative flex items-center">
+                            <span className="text-purple-600 mr-2">$</span>
+                            <Input
+                              type="number"
+                              min="0"
+                              step="100"
+                              value={value}
+                              onChange={(e) => {
+                                // Actualizar el costo unitario en el store
+                                if (isManual) {
+                                  const newCosts = { ...store.manualCosts }
+                                  if (populationType === "Adulto") {
+                                    newCosts.adultMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
+                                  } else if (populationType === "Pediátrico") {
+                                    newCosts.pediatricMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
+                                  } else {
+                                    newCosts.neonatalMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
+                                  }
+                                  store.setManualCosts(newCosts)
+                                } else {
+                                  const newCosts = { ...store.automatedCosts }
+                                  if (populationType === "Adulto") {
+                                    newCosts.adultMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
+                                  } else if (populationType === "Pediátrico") {
+                                    newCosts.pediatricMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
+                                  } else {
+                                    newCosts.neonatalMaterialCosts[key] = Number.parseFloat(e.target.value) || 0
+                                  }
+                                  store.setAutomatedCosts(newCosts)
+                                }
+                                setHasUnsavedChanges(true)
+                              }}
+                              className="w-full"
+                            />
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="relative flex items-center">
+                            <span className="text-purple-600 mr-2">$</span>
+                            <Input value={totalCost.toLocaleString("es-ES")} className="bg-gray-50" disabled />
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  }
                 })}
               </TableBody>
             </Table>
@@ -1397,7 +1482,7 @@ export default function CalculatorForm() {
 
               <div className="col-span-1 flex items-center">
                 <label className="text-sm text-gray-700">
-                  Horas por auxiliar de enfermería para 1 nutrición parenteral
+                  Horas por auxiliar farmacéutico para 1 nutrición parenteral
                 </label>
               </div>
               <div className="col-span-1">
@@ -1409,7 +1494,7 @@ export default function CalculatorForm() {
 
               <div className="col-span-1 flex items-center">
                 <label className="text-sm text-gray-700">
-                  Costos por auxiliar de enfermería para 1 nutrición parenteral
+                  Costos por auxiliar farmacéutico para 1 nutrición parenteral
                 </label>
               </div>
               <div className="col-span-1">

@@ -2089,7 +2089,7 @@ export default function CostsForm() {
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">
-                            Horas por Auxiliar de enfermería para 1 nutrición parenteral
+                            Horas por Auxiliar farmacéutico para 1 nutrición parenteral
                           </TableCell>
                           <TableCell>
                             <Input
@@ -2110,7 +2110,7 @@ export default function CostsForm() {
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell className="font-medium">Personal auxiliar requerido</TableCell>
+                          <TableCell className="font-medium">Personal auxiliar farmacéutico requerido</TableCell>
                           <TableCell>
                             <Input
                               type="number"
@@ -2125,7 +2125,7 @@ export default function CostsForm() {
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">
-                            Costos por Auxiliar de enfermería para 1 nutrición parenteral
+                            Costos por Auxiliar farmacéutico para 1 nutrición parenteral
                           </TableCell>
                           <TableCell>
                             <div className="relative">
@@ -2227,7 +2227,7 @@ export default function CostsForm() {
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">
-                            Horas por Auxiliar de enfermería para 1 nutrición parenteral
+                            Horas por Auxiliar farmacéutico para 1 nutrición parenteral
                           </TableCell>
                           <TableCell>
                             <Input
@@ -2251,7 +2251,7 @@ export default function CostsForm() {
                           </TableCell>
                         </TableRow>
                         <TableRow>
-                          <TableCell className="font-medium">Personal auxiliar requerido</TableCell>
+                          <TableCell className="font-medium">Personal auxiliar farmacéutico requerido</TableCell>
                           <TableCell>
                             <Input
                               type="number"
@@ -2266,7 +2266,7 @@ export default function CostsForm() {
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">
-                            Costos por Auxiliar de enfermería para 1 nutrición parenteral
+                            Costos por Auxiliar farmacéutico para 1 nutrición parenteral
                           </TableCell>
                           <TableCell>
                             <div className="relative">
