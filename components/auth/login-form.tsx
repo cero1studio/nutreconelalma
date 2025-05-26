@@ -42,7 +42,7 @@ export default function LoginForm() {
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // For demo purposes, only allow specific credentials
-      if (values.email === "demo@example.com" && values.password === "123456") {
+      if (values.email === "info@nutreconelalma.com" && values.password === "Nutre2025##") {
         router.push("/dashboard/calculator")
       } else {
         setError("Credenciales inválidas. Por favor intente nuevamente.")
